@@ -13,19 +13,14 @@ const getUser = async (onSuccess, onError) => {
   }
 };
 
-const getContractors = async (onSuccess, onError) => {
-  try {
-    const response = await fetch(
-      'https://cryptostar.grading.htmlacademy.pro/contractors'
-    );
-    if (!response.ok) {
-      onError();
-    }
-    const data = await response.json();
-    onSuccess(data);
-  } catch (error) {
-    onError();
-  }
+const getContractors = async (onSuccess) => {
+  const response = await fetch(
+    'https://cryptostar.grading.htmlacademy.pro/contractors'
+  );
+
+  const data = await response.json();
+  onSuccess(data);
+
 };
 
 const sendData = async (onSuccess, onFail, body) => {
