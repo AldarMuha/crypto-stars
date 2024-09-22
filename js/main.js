@@ -1,16 +1,13 @@
 import { getUser, getContractors } from './api.js';
 import { renderUserProfile, errorRenderUserProfile } from './user-profile.js';
-import { renderContractors, renderErrorContractors } from './contractors-list.js';
-import { tabsControls, filterContractors, onClickTabBuySell, checkedVerified } from './filter.js';
+import { renderErrorContractors } from './contractors-list.js';
+import { filterContractors, usersNav, handleClickUsersNav } from './filter.js';
 
 getUser((data) => renderUserProfile(data), errorRenderUserProfile);
-getContractors((data) => filterContractors(data));
+getContractors((data) => filterContractors(data), renderErrorContractors);
 
-tabsControls.addEventListener('click', (evt) => {
-  onClickTabBuySell(evt);
-  getContractors((data) => filterContractors(data));
+usersNav.addEventListener('click', (evt) => {
+  handleClickUsersNav(evt);
+  getContractors((data) => filterContractors(data), renderErrorContractors);
 });
 
-checkedVerified.addEventListener('click', () => {
-  getContractors((data) => filterContractors(data));
-});

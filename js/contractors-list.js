@@ -33,7 +33,8 @@ const renderContractors = (contractors) => {
 };
 
 const renderErrorContractors = () => {
-  document.querySelector('main .container').style.display = 'none';
+  document.querySelector('#container-contactors').style.display = 'none';
+  document.querySelector('#container-map').style.display = 'none';
   document.querySelector('#container-error').style.display = 'block';
 };
 

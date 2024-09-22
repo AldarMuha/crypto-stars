@@ -11,6 +11,9 @@
   <link rel="preload" href="fonts/exo2-semibold.woff2" as="font" crossorigin="anonymous">
   <link rel="preload" href="fonts/exo2-bold.woff2" as="font" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
 </head>
 
 <body>
@@ -206,8 +209,9 @@
             <div class="tabs no-transition-global tabs--toggle-list-map" data-tabs="parent" data-delay="300">
               <!-- При переключении с карты на список и обратно нужно выделить активный пункт .is-active -->
               <div class="tabs__controls" data-tabs="controls">
-                <button class="tabs__control btn is-active" type="button" data-tabs="control">Cписок</button>
-                <button class="tabs__control btn" type="button" data-tabs="control">Карта</button>
+                <button class="tabs__control btn is-active" id="tab-list" type="button"
+                  data-tabs="control">Cписок</button>
+                <button class="tabs__control btn" type="button" id="tab-map" data-tabs="control">Карта</button>
               </div>
             </div>
           </div>
@@ -249,8 +253,8 @@
       </div>
 
       <!-- При переключении на карту нужно отобразить данный контейнер -->
-      <div class="container" id="container-map" style="display: none">
-        <div class="map">
+      <div class="container" id="container-map">
+        <div class=" map" id="map">
           <!--
                         Карту нужно отрисовать в этот контейнер. Иконки для карты -
                         img/pin.svg и img/pin-verified.svg для обычных пользователей
@@ -590,11 +594,11 @@
         <span>Неопознанный енот</span>
       </span>
       <p class="user-card__cash-item"><span class="user-card__cash-label">Валюта</span><span
-          class="user-card__cash-data">KEKS</span></p>
-      <p class="user-card__cash-item"><span class="user-card__cash-label">Курс</span><span
-          class="user-card__cash-data">9 999 999 ₽</span></p>
-      <p class="user-card__cash-item"><span class="user-card__cash-label">Лимит</span><span
-          class="user-card__cash-data">9 900 ₽ – 9 900 000 000 ₽</span></p>
+          class="user-card__cash-data" id="currency">KEKS</span></p>
+      <p class="user-card__cash-item"><span class="user-card__cash-label">Курс</span><span class="user-card__cash-data"
+          id="exchangerate">9 999 999 ₽</span></p>
+      <p class="user-card__cash-item"><span class="user-card__cash-label">Лимит</span><span class="user-card__cash-data"
+          id="cashlimit">9 900 ₽ – 9 900 000 000 ₽</span></p>
       <ul class="user-card__badges-list">
         <li class="user-card__badges-item badge">BitTransfer</li>
         <li class="user-card__badges-item badge">CryptoEx</li>
@@ -605,6 +609,10 @@
     </div>
   </template>
 
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin="">
+    </script>
   <script src="./js/main.js" type="module"></script>
 
 </body>
