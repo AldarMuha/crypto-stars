@@ -27,23 +27,23 @@ const verifiedIcon = L.icon({
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = (user) => {
-  if (user.coords) {
-    const { lat, lng } = user.coords;
+const createMarker = (contactor, user) => {
+  if (contactor.coords) {
+    const { lat, lng } = contactor.coords;
     const marker = L.marker({
       lat,
       lng,
-    }, { icon: user.isVerified ? verifiedIcon : pinIcon, }
+    }, { icon: contactor.isVerified ? verifiedIcon : pinIcon, }
     );
     marker
       .addTo(markerGroup)
-      .bindPopup(createBaloon(user));
+      .bindPopup(createBaloon(contactor, user));
   }
 };
 
-const renderMarkers = (users) => {
+const renderMarkers = (contractors, user) => {
   markerGroup.clearLayers();
-  users.forEach((user) => createMarker(user));
+  contractors.forEach((contractor) => createMarker(contractor, user));
 };
 
 export { renderMarkers };

@@ -38,11 +38,11 @@ const sendData = async (onSuccess, onFail, body) => {
       },
     );
     if (!response.ok) {
-      onFail();
+      throw new Error('Не удалось отправить форму');
     }
     onSuccess();
   } catch (error) {
-    onFail();
+    onFail(error);
   }
 };
 

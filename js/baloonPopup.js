@@ -1,8 +1,10 @@
+import { showModalHandler } from './form.js';
+
 const baloonTemplate = document
   .querySelector('#map-baloon__template')
   .content.querySelector('.user-card');
 
-const createBaloon = (data) => {
+const createBaloon = (data, user) => {
   const baloonElement = baloonTemplate.cloneNode(true);
   const { userName, isVerified, balance, exchangeRate, paymentMethods, minAmount, status } = data;
 
@@ -17,6 +19,8 @@ const createBaloon = (data) => {
   baloonElement.querySelector('#cashlimit').textContent = `
     ${status === 'seller' ? `${Math.round(minAmount * exchangeRate)} ₽ - ${Math.round(balance.amount * exchangeRate)} ₽` : `${Math.round(minAmount)} ₽ - ${Math.round(balance.amount)} ₽`}
   `;
+  const button = baloonElement.querySelector('.user-card__change-btn');
+  button.addEventListener('click', () => showModalHandler(data, user));
 
   return baloonElement;
 };

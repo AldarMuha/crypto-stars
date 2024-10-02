@@ -34,24 +34,23 @@ const handleClickUsersNav = (evt) => {
   }
 };
 
-const filterContractors = (contractors) => {
-  const users = contractors;
+const filterContractors = (contractors, user) => {
   if (tabSell.classList.contains('is-active')) {
     containerMap.style.display = 'none';
     containerUsersList.style.display = 'block';
-    const items = users.filter((user) => user.status === 'buyer');
-    renderContractors(checkedVerified.checked ? items.filter((item) => item.isVerified) : items);
+    const items = contractors.filter((contactor) => contactor.status === 'buyer');
+    renderContractors(checkedVerified.checked ? items.filter((item) => item.isVerified) : items, user);
   }
   if (tabBuy.classList.contains('is-active')) {
-    const items = users.filter((user) => user.status === 'seller');
+    const items = contractors.filter((contactor) => contactor.status === 'seller');
     if (tabMap.classList.contains('is-active')) {
       containerUsersList.style.display = 'none';
       containerMap.style.display = 'block';
-      renderMarkers(checkedVerified.checked ? items.filter((item) => item.isVerified) : items);
+      renderMarkers(checkedVerified.checked ? items.filter((item) => item.isVerified) : items, user);
     } else {
       containerMap.style.display = 'none';
       containerUsersList.style.display = 'block';
-      renderContractors(checkedVerified.checked ? items.filter((item) => item.isVerified) : items);
+      renderContractors(checkedVerified.checked ? items.filter((item) => item.isVerified) : items, user);
     }
   }
 };

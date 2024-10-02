@@ -299,7 +299,8 @@
       <div class="modal__content">
         <h2 class="modal__description">Покупка криптовалюты</h2>
         <!-- Не забудьте указать верный action-атрибут -->
-        <form class="modal-buy" method="post">
+        <form class="modal-buy" method="post" action="https://cryptostar.grading.htmlacademy.pro/"
+          enctype="multipart/form-data">
           <!--
                         Обратите внимание, что всем полям для отправки на сервер нужно указать
                         атрибуты name (их список вы найдёте в техзадании), а часть полей
@@ -316,24 +317,26 @@
                 class="transaction-info__label">Пользователь</span><span class="transaction-info__data">
                 <svg width="20" height="20" aria-hidden="true">
                   <use xlink:href="#icon-star"></use>
-                </svg>John Smith</span></p>
+                </svg><span id="user-name">John Smith</span></span></p>
             <p class="transaction-info__item transaction-info__item--exchangerate"><span
                 class="transaction-info__label">Курс</span><span class="transaction-info__data">9 999
                 999&nbsp;₽</span></p>
             <p class="transaction-info__item transaction-info__item--cashlimit"><span
-                class="transaction-info__label">Лимит</span><span class="transaction-info__data">9 999
-                999&nbsp;₽&nbsp;-&nbsp;9 999 999 000&nbsp;₽</span></p>
+                class="transaction-info__label">Лимит</span><span class="transaction-info__data"><span
+                  id="cashlimit-min">9 999
+                  999</span>&nbsp;₽&nbsp;-&nbsp;<span id="cashlimit-max">9 999 999 000></span>&nbsp;₽</span></p>
           </div>
           <div class="modal__container modal__container--small">
             <div class="modal__input-wrapper modal__input-wrapper--min">
               <div class="custom-input">
-                <label><span class="custom-input__label">Оплата</span><span class="custom-input__unit">₽</span>
+                <label><span class="custom-input__label">Оплата</span><span class="custom-input__unit"><span
+                      class="currency-symbol-sending">₽</span></span>
                   <button class="btn btn--textblue custom-input__btn" type="button">обменять все
                   </button>
-                  <input type="number" value="" placeholder="0">
+                  <input type="number" name="sendingAmount" placeholder="0">
                 </label>
                 <!-- Пример стилизации ошибки валидации -->
-                <div class="custom-input__error">Минимальная сумма — 9 999 999 ₽</div>
+                <!--<div class="custom-input__error">Минимальная сумма — 9 999 999 ₽</div>-->
               </div>
             </div>
             <svg class="modal__container-svg" width="14" height="12" aria-hidden="true">
@@ -341,8 +344,9 @@
             </svg>
             <div class="modal__input-wrapper modal__input-wrapper--min">
               <div class="custom-input">
-                <label><span class="custom-input__label">Зачисление</span><span class="custom-input__unit">KEKS</span>
-                  <input type="number" placeholder="0">
+                <label><span class="custom-input__label">Зачисление</span><span class="custom-input__unit"><span
+                      class="currency-symbol-receiving">KEKS</span></span>
+                  <input type="number" name="receivingAmount" placeholder="0">
                 </label>
               </div>
             </div>
@@ -355,7 +359,7 @@
                                     которые есть у пользователя. Способ - удалить из разметки или добавить disable-атрибут
                                     остаётся на ваше усмотрение. Первый пункт, с предложением выбора, должен быть всегда
                                 -->
-                <select>
+                <select id="paymentMethods" name="paymentMethod">
                   <option selected disabled>Выберите платёжную систему</option>
                   <option>CryptoEx</option>
                   <option>Первый криптобанк</option>
@@ -368,34 +372,34 @@
               <div class="custom-input">
                 <!-- В случае, если выбрана оплата наличными, поле нужно оставить пустым -->
                 <label><span class="custom-input__label">Номер банковской карты пользователя</span>
-                  <input type="number" placeholder="1234 5678 9012 3456" disabled>
+                  <input type="text" id="number-bank-card" disabled>
                 </label>
               </div>
             </div>
-            <div class="modal__input-wrapper modal__input-wrapper--decorated">
+            <div class="modal__input-wrapper modal__input-wrapper--decorated modal__input-wrapper--crypto-wallet">
               <div class="custom-input">
                 <label><span class="custom-input__label">Номер криптокошелька пользователя</span>
-                  <input type="number" placeholder="08701943851-9832345" disabled>
+                  <input type="text" id="nubmer-crypto-wallet" disabled required>
                 </label>
               </div>
             </div>
             <div class="modal__input-wrapper modal__input-wrapper--decorated">
               <div class="custom-input">
                 <label><span class="custom-input__label">Платёжный пароль</span>
-                  <input type="password" value="123456" placeholder="Введите пароль">
+                  <input type="password" name="paymentPassword" value="123456" placeholder="Введите пароль">
                 </label>
               </div>
             </div>
             <button class="btn btn--green modal__submit" type="submit">Обменять
             </button>
             <!-- Сообщение, которое нужно показать в случае неудачной отправки данных -->
-            <p class="modal__validation-message modal__validation-message--error">
+            <p class="modal__validation-message modal__validation-message--error" style="display: none;">
               <svg width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-error"></use>
               </svg>Ошибка заполнения формы
             </p>
             <!-- Сообщение, которое нужно показать в случае успешной отправки данных -->
-            <p class="modal__validation-message modal__validation-message--success">
+            <p class="modal__validation-message modal__validation-message--success" style="display: none;">
               <svg width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-success"></use>
               </svg>Данные успешно отправлены
@@ -609,6 +613,7 @@
     </div>
   </template>
 
+  <script src="./pristine/pristine.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin="">
